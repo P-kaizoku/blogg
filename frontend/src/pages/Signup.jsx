@@ -17,7 +17,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://blogg-xcfb.onrender.com/register", formData);
+      await axios.post("https://blogg-xcfb.onrender.com/auth/register", formData);
       alert("Signup successful! You can now log in.");
       navigate("/login");
     } catch (error) {
