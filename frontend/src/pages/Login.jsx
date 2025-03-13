@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://blogg-xcfb.onrender.com/login",
         formData,
         { headers: { "Content-Type": "application/json" } }
       );
