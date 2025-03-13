@@ -13,6 +13,7 @@ const app = express();
 const allowedOrigins = [
   "https://blogg-dun-nine.vercel.app", // Your deployed frontend
   "http://localhost:5173", // If you're testing locally
+  
 ];
 
 const corsOptions = {
