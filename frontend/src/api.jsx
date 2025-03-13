@@ -23,3 +23,5 @@ export const updatePost = (id, updatedData) => API.put(`/posts/${id}`, updatedDa
 
 // 📌 Delete a post
 export const deletePost = (id) => API.delete(`/posts/${id}`);
+
+export const getUser = () => API.get("/user");

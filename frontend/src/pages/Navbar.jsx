@@ -1,48 +1,36 @@
 import { Link, useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import AuthContext from "../AuthContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check for token in localStorage
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setUser(decoded); // Save user details
-      } catch (error) {
-        console.error("Invalid token", error);
-        localStorage.removeItem("token");
-      }
-    }
-  }, []);
-
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
+    logout();
+    toast.info("Logged out successfully! 👋"); 
     navigate("/login");
   };
 
   return (
-    <nav className="navbar">
-      <Link to="/">Home</Link>
-      <Link to="/dashboard">Dashboard</Link>
+    <nav className="navbar  px-2 py-4 flex justify-center gap-8">
+      <div className="flex gap-6 shadow-xl bg-transparent backdrop-blur-2xl p-2 rounded-lg">
+        <Link to="/">Home</Link>
+        <Link to="/dashboard">Dashboard</Link>
 
-      {user ? (
-        <>
-          <span>Welcome, {user.username}!</span>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Register</Link>
-        </>
-      )}
+        {user ? (
+          <>
+            <span className="cursor-default">Welcome, {user.username}!</span>
+            <button className="cursor-pointer" onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 };

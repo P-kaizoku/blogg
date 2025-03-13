@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPost, deletePost } from "../api";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -33,18 +33,22 @@ const BlogDetail = () => {
   if (!post) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h2>{post.title}</h2>
-      <p>{post.content}</p>
-      <p>By: {post.author.username}</p>
+    <div className="flex  h-screen justify-center">
+      <div className="flex flex-col gap-4 bg-white p-8 rounded-lg shadow-lg w-[500px] h-max">
+        <h2 className="font-bold text-4xl text-emerald-400 uppercase">{post.title}</h2>
+        <p className="text-[1em] text-blue-400">{post.content}</p>
+        <p className="text-sm text-black/40">By: {post.author.username}</p>
 
-      {/* Conditionally show Edit & Delete if the current user is the author */}
-      {currentUserId === post.author._id && (
-        <div>
-          <button onClick={() => navigate(`/edit/${post._id}`)}>Edit Post</button>
-          <button onClick={handleDelete}>Delete Post</button>
-        </div>
-      )}
+        {/* Conditionally show Edit & Delete if the current user is the author */}
+        {currentUserId === post.author._id && (
+          <div>
+            <button onClick={() => navigate(`/edit/${post._id}`)}>
+              Edit Post
+            </button>
+            <button onClick={handleDelete}>Delete Post</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
