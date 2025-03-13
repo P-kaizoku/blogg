@@ -13,7 +13,7 @@ const app = express();
 const allowedOrigins = [
   "https://blogg-dun-nine.vercel.app", // Your deployed frontend
   "http://localhost:5173", // If you're testing locally
-  
+
 ];
 
 const corsOptions = {
@@ -27,7 +27,7 @@ const corsOptions = {
   credentials: true, // Allows cookies & authentication tokens
 };
 
-app.use(cors(corsOptions));
+app.use(cors({ ...corsOptions, methods: ["GET", "POST", "PUT", "DELETE"] }));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
