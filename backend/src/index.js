@@ -10,12 +10,23 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://blogg-dun-nine.vercel.app/",
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  "https://blogg-dun-nine.vercel.app", // Your deployed frontend
+  "http://localhost:5173", // If you're testing locally
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allows cookies & authentication tokens
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
